@@ -1,0 +1,22 @@
+.stocks {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 250px);
+}
+
+.stock {
+  color: #111;
+  background: #FFF;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.stock h3 {
+  font-size: 16px;
+}
+
+.stock .price {
+  font-weight: bold;
+}
+
