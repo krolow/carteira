@@ -18,7 +18,19 @@ function Stock({ code, price, priceopen, closeyest, currency }) {
     <div className="stock">
       <h3>{code}</h3>
       <div className="price">{toMoneyFormat(price, currency)}</div>
-        {percentage}
+      <Percentage value={percentage} />
+    </div>
+  );
+}
+
+function Percentage({ value }) {
+  const directionName = value > 0 ? 'up' : 'down';
+  const percentageClassName = `percentage ${directionName}`;
+  const direction = directionName === 'down' ? '▼' : '▲';
+
+  return (
+    <div className={percentageClassName}>
+      {value}%<span className="direction">{direction}</span>
     </div>
   );
 }

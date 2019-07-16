@@ -20,3 +20,14 @@
   font-weight: bold;
 }
 
+.stock .percentage .direction {
+
+}
+
+.stock .percentage.down {
+  color: red;
+}
+
+.stock .percentage.up {
+  color: green;
+}
