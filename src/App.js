@@ -1,9 +1,9 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react';
 
 import useStocks from './useStocks';
 import Stocks from './Stocks';
 
-import './App.css';
 
 function App() {
   const [stocks, setStocks] = React.useState();
@@ -11,11 +11,11 @@ function App() {
   useStocks(setStocks);
 
   return (
-    <div className="App">
+    <Container>
       <header className="App-header">
         { stocks && <Stocks stocks={stocks} /> }
       </header>
-    </div>
+    </Container>
   );
 }
 

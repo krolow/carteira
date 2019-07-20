@@ -1,22 +1,27 @@
 import React from 'react';
+import { Card } from 'semantic-ui-react';
 
 import './Stocks.css';
 
 export default function Stocks({ stocks }) {
   return (
-    <div className="stocks">
+    <Card.Group className="stocks">
       {stocks.map(stock => <Stock {...stock} key={stock.code}/>)}
-    </div>
-  )
+    </Card.Group>
+  );
 }
 
 function Stock({ code, percentageDiff, price, priceopen, closeyest, currency }) {
   return (
-    <div className="stock">
-      <h3>{code}</h3>
-      <div className="price">{toMoneyFormat(price, currency)}</div>
-      <Percentage value={percentageDiff} />
-    </div>
+    <Card className="stock" centered>
+      <Card.Content textAlign="center">
+        <Card.Header>{code}</Card.Header>
+        <Card.Description>
+          <div className="price">{toMoneyFormat(price, currency)}</div>
+          <Percentage value={percentageDiff} />
+        </Card.Description>
+      </Card.Content>
+    </Card>
   );
 }
 
