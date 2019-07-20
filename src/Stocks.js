@@ -1,13 +1,24 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react';
 import { Card } from 'semantic-ui-react';
+import { Menu } from 'semantic-ui-react';
+import { Segment } from 'semantic-ui-react';
 
 import './Stocks.css';
 
 export default function Stocks({ stocks }) {
   return (
-    <Card.Group className="stocks">
-      {stocks.map(stock => <Stock {...stock} key={stock.code}/>)}
-    </Card.Group>
+    <Container>
+      <Menu attached="top" tabular>
+        <Menu.Item active>Acoes</Menu.Item>
+        <Menu.Item>FIIS</Menu.Item>
+      </Menu>
+      <Segment attached="bottom">
+        <Card.Group className="stocks">
+          {stocks.map(stock => <Stock {...stock} key={stock.code}/>)}
+        </Card.Group>
+      </Segment>
+    </Container>
   );
 }
 
