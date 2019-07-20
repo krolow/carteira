@@ -10,15 +10,12 @@ export default function Stocks({ stocks }) {
   )
 }
 
-function Stock({ code, price, priceopen, closeyest, currency }) {
-  const diff = price - closeyest;
-  const percentage = ((diff / closeyest) * 100).toFixed(2);
-
+function Stock({ code, percentageDiff, price, priceopen, closeyest, currency }) {
   return (
     <div className="stock">
       <h3>{code}</h3>
       <div className="price">{toMoneyFormat(price, currency)}</div>
-      <Percentage value={percentage} />
+      <Percentage value={percentageDiff} />
     </div>
   );
 }

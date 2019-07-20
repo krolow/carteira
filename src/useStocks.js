@@ -40,7 +40,7 @@ async function parseData(body) {
 
 
 function toStock(stock) {
-  return Object.entries(stock)
+  const mapped = Object.entries(stock)
     .reduce((acc, [ key, value ]) => {
       if (value.match(/^\d+/))
         acc[key] = parseFloat(value.replace(',', '.'));
@@ -51,5 +51,12 @@ function toStock(stock) {
 
       return acc;
     }, {});
-}
 
+  const diff = mapped.price - mapped.closeyest;
+  const percentageDiff = ((diff / mapped.closeyest) * 100).toFixed(2);
+
+  return {
+    ...mapped,
+    percentageDiff
+  }
+}
