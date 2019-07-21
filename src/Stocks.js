@@ -29,6 +29,16 @@ export default function Stocks({ stocks }) {
     setSearchTerm(data.value);
   }
 
+  const stocksPrepared = stocks
+    .filter(searchFilter.bind(null, term))
+    .filter(({ type }) => {
+      if (term)
+        return true;
+
+      return type === tab;
+    })
+    .sort(byDirection.bind(null, sortDirection));
+
   return (
     <Container>
       <Menu attached="top" tabular>
@@ -51,16 +61,12 @@ export default function Stocks({ stocks }) {
         </Menu>
         <Card.Group className="stocks">
             {
-              stocks
-                .filter(searchFilter.bind(null, term))
-                .filter(({ type }) => {
-                  if (term)
-                    return true;
-
-                  return type === tab;
-                })
-                .sort(byDirection.bind(null, sortDirection))
-                .map(stock => <Stock {...stock} key={stock.code}/>)
+              stocksPrepared.length > 0 &&
+              stocksPrepared.map(stock => <Stock {...stock} key={stock.code}/>)
+            }
+            {
+              stocksPrepared.length === 0 &&
+              <h4>no results</h4>
             }
         </Card.Group>
       </Segment>
