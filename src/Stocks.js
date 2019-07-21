@@ -6,11 +6,14 @@ import { Menu } from 'semantic-ui-react';
 import { Segment } from 'semantic-ui-react';
 import { Button } from 'semantic-ui-react';
 import { Icon } from 'semantic-ui-react';
+import { Search } from 'semantic-ui-react';
+import { debounce } from './fn';
 
 import './Stocks.css';
 
 export default function Stocks({ stocks }) {
   const [sortDirection, setSortDirection] = useState('ascending');
+  const [term, setTerm] = useState(null);
   const [tab, setTab] = useState('acao');
 
   function handleDirectionClick(event) {
@@ -18,11 +21,22 @@ export default function Stocks({ stocks }) {
     setSortDirection(sortDirection === 'ascending' ? 'descending' : 'ascending');
   }
 
+  const setSearchTerm = debounce(value => {
+    setTerm(value);
+  }, 200);
+
+  function handleSearchChange(event, data) {
+    setSearchTerm(data.value);
+  }
+
   return (
     <Container>
       <Menu attached="top" tabular>
-        <Menu.Item active={tab === 'acao'} onClick={() => setTab('acao')}>Acoes</Menu.Item>
-        <Menu.Item active={tab === 'fiis'} onClick={() => setTab('fiis')}>FIIS</Menu.Item>
+        {!term && <Menu.Item active={tab === 'acao'} onClick={() => setTab('acao')}>Acoes</Menu.Item>}
+        {!term && <Menu.Item active={tab === 'fiis'} onClick={() => setTab('fiis')}>FIIS</Menu.Item>}
+        <Menu.Item position="right">
+          <Search showNoResults={false} onSearchChange={handleSearchChange}/>
+        </Menu.Item>
       </Menu>
       <Segment attached="bottom">
         <Menu tabular>
@@ -38,7 +52,13 @@ export default function Stocks({ stocks }) {
         <Card.Group className="stocks">
             {
               stocks
-                .filter(({ type }) => type === tab)
+                .filter(searchFilter.bind(null, term))
+                .filter(({ type }) => {
+                  if (term)
+                    return true;
+
+                  return type === tab;
+                })
                 .sort(byDirection.bind(null, sortDirection))
                 .map(stock => <Stock {...stock} key={stock.code}/>)
             }
@@ -46,6 +66,13 @@ export default function Stocks({ stocks }) {
       </Segment>
     </Container>
   );
+}
+
+function searchFilter(term, entry) {
+  if (!term)
+    return true;
+
+  return entry.code.toLowerCase().startsWith(term.toLowerCase());
 }
 
 function byDirection(direction, a, b) {

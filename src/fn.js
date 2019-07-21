@@ -9,3 +9,13 @@ export function compose(...fns) {
 export function pipe(...fns) {
   return compose(...fns.reverse());
 };
+
+export function debounce(func, wait) {
+  let timeout;
+
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), wait);
+  }
+};
