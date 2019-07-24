@@ -40,7 +40,7 @@ export default function Stocks({ stocks }) {
     .sort(byDirection.bind(null, sortDirection));
 
   return (
-    <Container>
+    <Container fluid>
       <Menu attached="top" tabular>
         {!term && <Menu.Item active={tab === 'acao'} onClick={() => setTab('acao')}>Acoes</Menu.Item>}
         {!term && <Menu.Item active={tab === 'fiis'} onClick={() => setTab('fiis')}>FIIS</Menu.Item>}
