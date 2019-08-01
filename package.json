@@ -10,6 +10,7 @@
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "semantic-ui-css": "^2.4.1",
+    "semantic-ui-forest-themes": "^1.0.3",
     "semantic-ui-react": "^0.87.3"
   },
   "scripts": {

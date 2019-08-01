@@ -59,7 +59,7 @@ export default function Stocks({ stocks }) {
             </Button.Group>
           </Menu.Item>
         </Menu>
-        <Card.Group className="stocks">
+        <Card.Group doubling className="stocks">
             {
               stocksPrepared.length > 0 &&
               stocksPrepared.map(stock => <Stock {...stock} key={stock.code}/>)
