@@ -107,9 +107,13 @@ function Percentage({ value }) {
   const percentageClassName = `percentage ${directionName}`;
   const direction = directionName === 'down' ? '▼' : '▲';
 
+  if (value.toString() === '0.00')
+    return <div className="percentage">0.00</div>
+
   return (
     <div className={percentageClassName}>
-      {value}%<span className="direction">{direction}</span>
+      {value}%
+      <span className="direction">{direction}</span>
     </div>
   );
 }
