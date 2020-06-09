@@ -30,6 +30,7 @@ export default function Stocks({ stocks }) {
   }
 
   const stocksPrepared = stocks
+    .filter(byNonNullPrice)
     .filter(searchFilter.bind(null, term))
     .filter(({ type }) => {
       if (term)
@@ -120,4 +121,8 @@ function Percentage({ value }) {
 
 function toMoneyFormat(number, currency = 'BRL') {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(number);
+}
+
+function byNonNullPrice({ price }) {
+  return Boolean(price);
 }
